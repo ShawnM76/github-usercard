@@ -2,6 +2,19 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards')
+
+// axios.get('https://api.github.com/users/ShawnM76')
+//   .then(data => {
+//     objectData = data.data;
+//     console.log(objectData)
+//     const element = createGitHubPanel(objectData);
+//     cards.appendChild(element);
+//     // console.log('response:', objectData)
+//   })
+//   .catch(error => {
+//     console.log('O no a Error!', error)
+//   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -14,6 +27,7 @@
            create a new component and add it to the DOM as a child of .cards
 */
 
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -24,27 +38,92 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['https://api.github.com/users/denmercs', 'https://api.github.com/users/Miguelperalta723', 'https://api.github.com/users/sdoylelambda', 'https://api.github.com/users/CarlaMarvin78', 'https://api.github.com/users/Bilguun1015', 'https://api.github.com/users/ShawnM76'];
 
-/* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
+followersArray.forEach((users) => {
+  axios.get(users)
+  .then(data => {
+    objectData = data.data;
+    console.log(objectData)
+    const element = createGitHubPanel(objectData);
+    cards.appendChild(element);
+  })
+  .catch(error => {
+    console.log('O there is a big error!', error)
+  })
+})
+//  Step 3: Create a function that accepts a single object as its only argument,
+//           Using DOM methods and properties, create a component that will return the following DOM element:
+         
+function createGitHubPanel(user) {
+    // creating the elements
+    const card = document.createElement('div')
+    const img = document.createElement('img')
+    const cardInfo = document.createElement('div')
+    const title = document.createElement('h3')
+    const username = document.createElement('p')
+    const location = document.createElement('p')
+    const profile = document.createElement('p')
+    const address = document.createElement('a')
+    const followers = document.createElement('p')
+    const address2 = document.createElement('a')
+    const following = document.createElement('p')
+    const address3 = document.createElement('a')
+    const bio = document.createElement('p')
 
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
+    // set the styles
+    card.classList.add('card')
+    cardInfo.classList.add('card-info')
+    title.classList.add('name')
+    username.classList.add('username')
+    
 
-*/
+    // setting the text content 
+    img.src = user.avatar_url;
+    title.textContent = user.name;
+    username.textContent = user.login;
+    location.textContent = user.location;
+    profile.textContent = 'Profile: ';
+    address.textContent = user.url;
+    followers.textContent= 'Followers: ';
+    address2.textContent = user.followers;
+    following.textContent = 'Following: ';
+    address3.textContent = user.following;
+    bio.textContent = user.bio;
+
+    // put together
+    card.appendChild(img)
+    card.appendChild(cardInfo)
+    cardInfo.appendChild(title)
+    cardInfo.appendChild(username)
+    cardInfo.appendChild(location)
+    cardInfo.appendChild(profile)
+    cardInfo.appendChild(followers)
+    cardInfo.appendChild(following)
+    cardInfo.appendChild(bio)
+    profile.appendChild(address)
+    followers.appendChild(address2)
+    following.appendChild(address3)
+
+    return card;
+}
+
+
+/* <div class="card">
+    <img src={image url of user} />
+    <div class="card-info">
+      <h3 class="name">{users name}</h3>
+      <p class="username">{users user name}</p>
+      <p>Location: {users location}</p>
+      <p>Profile:  
+        <a href={address to users github page}>{address to users github page}</a>
+      </p>
+      <p>Followers: {users followers count}</p>
+      <p>Following: {users following count}</p>
+      <p>Bio: {users bio}</p>
+    </div>
+  </div> */
+
 
 /* List of LS Instructors Github username's: 
   tetondan
