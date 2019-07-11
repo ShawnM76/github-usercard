@@ -66,7 +66,9 @@ function createGitHubPanel(user) {
     const profile = document.createElement('p')
     const address = document.createElement('a')
     const followers = document.createElement('p')
+    const address2 = document.createElement('a')
     const following = document.createElement('p')
+    const address3 = document.createElement('a')
     const bio = document.createElement('p')
 
     // set the styles
@@ -83,8 +85,10 @@ function createGitHubPanel(user) {
     location.textContent = user.location;
     profile.textContent = 'Profile: ';
     address.textContent = user.url;
-    followers.textContent = user.followers;
-    following.textContent = user.following;
+    followers.textContent= 'Followers: ';
+    address2.textContent = user.followers;
+    following.textContent = 'Following: ';
+    address3.textContent = user.following;
     bio.textContent = user.bio;
 
     // put together
@@ -98,6 +102,8 @@ function createGitHubPanel(user) {
     cardInfo.appendChild(following)
     cardInfo.appendChild(bio)
     profile.appendChild(address)
+    followers.appendChild(address2)
+    following.appendChild(address3)
 
     return card;
 }
